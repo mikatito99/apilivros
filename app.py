@@ -1,7 +1,12 @@
-
 from flask import Flask, request, jsonify
 import sqlite3
 from flask_cors import CORS
+
+# Inicializa a instância do Flask
+app = Flask(__name__)
+
+# Ativa o CORS
+CORS(app)
 
 
 def init_db():
@@ -21,12 +26,11 @@ init_db()
 
 @app.route('/')
 def home_page():
-    return '<h2>Minha pagina com Flask</h2>'
+    return '<h2>Minha página com Flask</h2>'
 
 
 @app.route('/doar', methods=['POST'])
 def doar():
-
     dados = request.get_json()
 
     titulo = dados.get('titulo')
@@ -54,7 +58,6 @@ def listar_livros():
     """
 
     with sqlite3.connect("database.db") as conn:
-
         livros = conn.execute("SELECT * FROM livros").fetchall()
 
     livros_formatados = []
